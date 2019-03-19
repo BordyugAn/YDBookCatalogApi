@@ -1,13 +1,20 @@
 package ru.catalog.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+@Data
+@EqualsAndHashCode(exclude = "books")
+
 
 @Entity
 @Table(name = "categories")
-@Getter @Setter
 public class CategoryEntity {
 
     @Id
@@ -18,12 +25,12 @@ public class CategoryEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "parentcatecory")
-    private CategoryEntity parentCategory;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<BookEntity> books;
 
-    public CategoryEntity(String name, CategoryEntity parentCategory) {
+    public CategoryEntity(String name, BookEntity... books) {
         this.name = name;
-        this.parentCategory = parentCategory;
+        this.books = Stream.of(books).collect(Collectors.toSet());
+        this.books.forEach(x -> x.setCategory(this));
     }
 }

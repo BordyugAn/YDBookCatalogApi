@@ -1,7 +1,7 @@
 create table categories(
   id BIGSERIAL primary key,
-  name varchar(20) not null,
-  parentCategory int null references categories(id)
+  name varchar(20) not null
+--   parentCategory int null references categories(id)
 );
 
 
