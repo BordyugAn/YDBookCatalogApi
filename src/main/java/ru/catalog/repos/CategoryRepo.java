@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import ru.catalog.entity.CategoryEntity;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface CategoryRepo extends CrudRepository<CategoryEntity, Long> {
 

@@ -8,11 +8,6 @@ create table categories(
 create table books(
   id bigserial primary key,
   name varchar(30) not null,
-  link varchar(150) not null
-);
-
-create table categories_books(
-  category int references categories(id) not null ,
-  book int references books(id) not null,
-  primary key (category, book)
+  link varchar(150) not null,
+  categories_id int references categories(id) not null
 );

@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,12 +13,12 @@ import java.util.stream.Stream;
 
 
 @Entity
-@Table(name = "categories")
+//@Table(name = "categories")
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial")
     private int id;
 
     @Column(name = "name", nullable = false)
@@ -32,5 +31,8 @@ public class CategoryEntity {
         this.name = name;
         this.books = Stream.of(books).collect(Collectors.toSet());
         this.books.forEach(x -> x.setCategory(this));
+    }
+
+    public CategoryEntity() {
     }
 }
