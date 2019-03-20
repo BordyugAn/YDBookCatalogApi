@@ -1,7 +1,5 @@
 package ru.catalog.controller;
 
-
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +24,13 @@ public class MainController {
     BooksRepo booksRepo;
 
     @RequestMapping("/categoryList")
-    public String getCategoryList(){
+    public List<CategoryEntity> getCategoryList(){
         List<CategoryEntity> list = new ArrayList<>();
         Iterable<CategoryEntity> iterable = categoryRepo.findAll();
 
         iterable.forEach(list::add);
 
-        String result = new Gson().toJson(list);
-
-        return result;
+        return list;
     }
 
     @RequestMapping(value = "/category", method = RequestMethod.POST)
