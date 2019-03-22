@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.catalog.entity.BookEntity;
 import ru.catalog.entity.CategoryEntity;
 import ru.catalog.repos.BooksRepo;
 import ru.catalog.repos.CategoryRepo;
@@ -53,4 +54,23 @@ public class MainController {
         }
     }
 
+    @RequestMapping(value = "/booksList")
+    public List<BookEntity> getBooksList(){
+        List<BookEntity> list = new ArrayList<>();
+        Iterable<BookEntity> iterable = booksRepo.findAll();
+
+        iterable.forEach(list::add);
+
+        return list;
+    }
+
+    @RequestMapping(value = "/book", method = RequestMethod.POST)
+    public ResponseEntity addBook(@RequestParam("categoryId") int id, @RequestParam("name") String name){
+        try{
+            booksRepo.save(new BookEntity(name, "link", categoryRepo.findById(id)));
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -11,3 +11,6 @@ create table books(
   link varchar(150) not null,
   categories_id int references categories(id) not null
 );
+
+
+delete table categor

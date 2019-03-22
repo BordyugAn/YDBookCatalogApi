@@ -30,8 +30,10 @@ public class BookEntity {
     public BookEntity() {
     }
 
-    public BookEntity(String name, String link) {
+
+    public BookEntity(String name, String link, CategoryEntity category) {
         this.name = name;
         this.link = link;
+        this.category = category;
     }
 }
